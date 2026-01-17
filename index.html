@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skullfish Produkty se šipkami</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background: #ffffff;
+}
+
+/* scroll wrapper se šipkami */
+.product-section {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+/*poradi ramecku*/
+.product-scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: hidden; 
+  scroll-behavior: smooth;
+  width: 100%;
+}
+
+/* rámeček */
+.product-item {
+  flex: 0 0 200px;  
+  text-decoration: none;
+  color: #000;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/*obrys rameku*/
+.image-wrapper {
+  width: 200px;
+  height: 260px;             
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;     
+  background: #fff;
+  position: relative;
+}
+
+.image-wrapper .info {
+  padding: 6px;
+  text-align: center;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+
+/*pozice obrazku*/
+.image-wrapper .image {
+  height: 160px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/*popisek*/
+.product-item .caption {
+  display: block;
+  margin-top: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #000;
+}
+
+/*pole detail*/
+.product-item .button {
+    height: 28px;
+    min-width: 60px;  
+    background-color: #D14FC0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #ffffff;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 6px;
+    font-size: 15px; 
+    font-weight: bolder; 
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/*pole novinka*/
+.product-item .novinka {
+    height: 32px;
+    width: 70px;
+    padding: 0 12px;  
+    background-color: #3C840F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #ffffff;
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    font-size: 14px; 
+    font-weight: bolder; 
+}
+
+.product-item .tip {
+    height: 28px;
+    width: 50px;
+    padding: 0 12px;  
+    background-color: #008392;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #ffffff;
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    font-size: 14px; 
+    font-weight: bolder; 
+}
+
+
+.product-item .tip2 {
+    height: 28px;
+    width: 50px;
+    padding: 0 12px; 
+    margin-top: 40px; 
+    background-color: #008392;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #ffffff;
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    font-size: 14px; 
+    font-weight: bolder; 
+}
+
+/* cena */
+.product-item .price {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+  color: #444;
+}
+
+/* šipky */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+
+  background: rgba(0, 0, 0, 0.4); /* tmavé pozadí */
+  color: #fff;                  /* bílá šipka */
+
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  line-height: 38px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  z-index: 10;
+  
+}
+
+.arrow-left { left: -20px; }
+.arrow-right { right: -20px; }
+
+
+/*rameck kaprarina*/
+.prvbibox {
+  height: 130px;
+  width: 410px;
+  background: #D14FC0;
+  border-radius: 15px;
+  margin-bottom: 20px;
+   justify-content: center;
+ align-items: center;
+ display: flex;
+ flex-direction: column;
+ align-items: start;
+ padding-left: 50px;
+ 
+
+ transform: scale(1);
+  transition: 
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  will-change: transform;
+
+  
+ background-image: url('https://www.skullfish.cz/user/documents/upload/gallery/tempImage3EX7fY_small.jpg');
+  background-attachment: fixed; /* Fixace k oknu prohlížeče */
+  background-size: 50%;      /* Logo se celé vejde (nebo 'cover' pro vyplnění) */
+  background-repeat: no-repeat;
+  background-position: right;
+  
+  display: flex;
+  flex-direction: column; 
+
+} 
+
+.druhybox {
+height: 130px;
+  width: 410px;
+  background: #D14FC0;
+  border-radius: 15px;
+  margin-bottom: 20px;
+   justify-content: center;
+ align-items: center;
+ display: flex;
+ flex-direction: column;
+ align-items: start;
+ padding-left: 50px;
+ 
+
+ transform: scale(1);
+  transition: 
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  will-change: transform;
+
+  
+ background-image: url('https://www.skullfish.cz/user/documents/upload/Snímek obrazovky 2026-01-17 115605.png');
+  background-attachment: fixed; /* Fixace k oknu prohlížeče */
+  background-size: 50%;      /* Logo se celé vejde (nebo 'cover' pro vyplnění) */
+  background-repeat: no-repeat;
+  background-position: right;
+  
+  display: flex;
+  flex-direction: column; 
+} 
+
+.tertibox {
+  height: 130px;
+  width: 410px;
+  background: #D14FC0;
+  border-radius: 15px;
+  margin-bottom: 20px;
+   justify-content: center;
+ align-items: center;
+ display: flex;
+ flex-direction: column;
+ align-items: start;
+ padding-left: 50px;
+ 
+
+ transform: scale(1);
+  transition: 
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  will-change: transform;
+
+  
+ background-image: url('https://www.skullfish.cz/user/documents/upload/gallery/pop mini.jpg');
+  background-attachment: fixed; /* Fixace k oknu prohlížeče */
+  background-size: 50%;      /* Logo se celé vejde (nebo 'cover' pro vyplnění) */
+  background-repeat: no-repeat;
+  background-position: right;
+  
+  display: flex;
+  flex-direction: column; 
+} 
+
+.ctvrtybox {
+  height: 130px;
+  width: 410px;
+  background: #D14FC0;
+  border-radius: 15px;
+  margin-bottom: 20px;
+   justify-content: center;
+ align-items: center;
+ display: flex;
+ flex-direction: column;
+ align-items: start;
+ padding-left: 50px;
+ 
+
+ transform: scale(1);
+  transition: 
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  will-change: transform;
+
+  
+ background-image: url('https://www.skullfish.cz/user/documents/upload/gallery/Snímek obrazovky 2026-01-17 174510.png');
+  background-attachment: fixed; /* Fixace k oknu prohlížeče */
+  background-size: 50%;      /* Logo se celé vejde (nebo 'cover' pro vyplnění) */
+  background-repeat: no-repeat;
+  background-position: right;
+  
+  display: flex;
+  flex-direction: column; 
+} 
+
+.patybox {
+  height: 130px;
+  width: 410px;
+  background: #D14FC0;
+  border-radius: 15px;
+  margin-bottom: 20px;
+   justify-content: center;
+ align-items: center;
+ display: flex;
+ flex-direction: column;
+ align-items: start;
+ padding-left: 50px;
+ 
+
+ transform: scale(1);
+  transition: 
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  will-change: transform;
+
+  
+ background-image: url('https://www.skullfish.cz/user/documents/upload/Snímek obrazovky 2026-01-17 115519.png');
+  background-attachment: fixed; /* Fixace k oknu prohlížeče */
+  background-size: 50%;      /* Logo se celé vejde (nebo 'cover' pro vyplnění) */
+  background-repeat: no-repeat;
+  background-position: right;
+  
+  display: flex;
+  flex-direction: column; 
+} 
+
+
+
+.prvbibox:hover {
+  box-shadow: 0 20px 50px rgba(0,0,0,.5);
+ transform: scale(1.01);
+}
+.druhybox:hover {
+  box-shadow: 0 20px 50px rgba(0,0,0,.5);
+ transform: scale(1.01);
+}
+
+.tertibox:hover {
+  box-shadow: 0 20px 50px rgba(0,0,0,.5);
+ transform: scale(1.01);
+}
+
+.ctvrtybox:hover {
+  box-shadow: 0 20px 50px rgba(0,0,0,.5);
+ transform: scale(1.01);
+}
+.patybox:hover {
+  box-shadow: 0 20px 50px rgba(0,0,0,.5);
+ transform: scale(1.01);
+}
+
+.bu:hover {
+  box-shadow: 0 20px 50px rgba(0,0,0,.5);
+ transform: scale(1.01);
+}
+
+.containerb {
+ justify-content: center;
+ align-items: center;
+ display: flex;
+}
+
+.textvpoli {
+ color: #ffffff;
+ margin: 0;
+ font-weight: bold;
+ font-size: larger;
+}
+
+.radek {
+  display: flex;
+  flex-wrap: wrap;        /* důležité – zalomí boxy, když se nevejdou */
+  gap: 10px;              /* mezery mezi boxy */
+  justify-content: center;
+  
+}
+
+@media (max-width: 450px) {
+  .prvbibox,
+  .druhybox,
+  .tertibox,
+  .ctvrtybox,
+  .patybox {
+    padding-left: 20px;   /* méně odsazení na mobilu */
+    height: auto;          /* výška se přizpůsobí obsahu */
+  }
+}
+
+.logo {
+  justify-content: center;
+  top: 0px;
+  left: 10px;
+   width: 100%;    /* velikost loga jako procento šířky boxu */
+  height: auto;  /* zachová poměr stran obrázku */
+  max-width: 100px;
+  margin-bottom: 6px;
+}
+
+.slider {
+  position: relative;
+  width: 90%;          /* desktop šířka */
+  max-width: 1000px;   /* limit pro velké obrazovky */
+  margin: 20px auto 40px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slides img {
+    width: 100%;
+  flex-shrink: 0;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+
+  background: rgba(0, 0, 0, 0.4); /* tmavé pozadí */
+  color: #fff;                  /* bílá šipka */
+
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  line-height: 38px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.5s;
+  text-decoration: none;
+}
+
+.prev {left: 10px; }
+.next {right: 10px; }
+
+.slider:hover .prev,
+.slider:hover .next {
+  opacity: 1;              /* zobrazí se při hoveru */
+}
+
+
+
+
+
+@media (max-width: 600px) {
+  .prev, .next {
+    font-size: 1.rem;
+    padding: 0.3rem 0.6rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  .slider {
+    width: 100vw;          /* 120% šířky viewportu */
+    max-width: none;       /* žádný limit */
+    margin-left: -7.5vw;    /* posune slider na střed */
+    border-radius: 0;
+    margin-bottom: 15px;
+  }
+}
+
+
+
+</style>
+</head>
+<body>
+
+<div class="slider">
+  <button class="prev">&#10094;</button>
+  <div class="slides">
+    <img src="https://cdn.myshoptet.com/usr/www.skullfish.cz/user/banners/1721320129845.jpeg?66994326" alt="Foto 1">
+    <img src="https://cdn.myshoptet.com/usr/www.skullfish.cz/user/banners/polish_20241130_105940111_copy_1640x553.jpg?674c884b" alt="Foto 2">
+    <img src="https://cdn.myshoptet.com/usr/www.skullfish.cz/user/banners/polish_20241130_110022750_copy_1640x553.jpg?674c87de" alt="Foto 3">
+    <img src="https://cdn.myshoptet.com/usr/www.skullfish.cz/user/banners/polish_20241130_110036866_copy_1640x553.jpg?674c876f" alt="Foto 4">
+    <img src="https://cdn.myshoptet.com/usr/www.skullfish.cz/user/banners/polish_20241130_105955334_copy_1640x553.jpg?674c8811" alt="Foto 5">
+    <img src="https://cdn.myshoptet.com/usr/www.skullfish.cz/user/banners/messenger_creation_be68b9f9-26b1-4922-a1de-216638c04452.jpeg?6697ee93" alt="Foto 4">
+    <img src="https://cdn.myshoptet.com/usr/www.skullfish.cz/user/banners/1721320129847.jpeg?6699434e" alt="Foto 5">
+  </div>
+  <button class="next">&#10095;</button>
+</div>
+  
+
+
+<a href="https://www.skullfish.cz/boilies-2/" style="text-decoration: none;">
+  <div class="radek">
+  <div class="containerb">
+     <div class="prvbibox">
+        <img src="https://www.skullfish.cz/user/documents/upload/skull logo bile.png" class="logo">
+        <p class="textvpoli">BOILIES
+      </div>
+   </div>
+</a>
+
+
+   
+<a href="https://www.skullfish.cz/pelety-7/" style="text-decoration: none;">
+     <div class="containerb">
+      <div class="druhybox">
+        <img src="https://www.skullfish.cz/user/documents/upload/skull logo bile.png" class="logo">
+        <p class="textvpoli">PELETY
+      </div>  
+   </div>
+   
+</div>
+</a>
+
+
+
+<a href="https://www.skullfish.cz/feeder-program/" style="text-decoration: none;">
+  <div class="radek">
+  <div class="containerb">
+     <div class="tertibox">
+        <img src="https://www.skullfish.cz/user/documents/upload/skull logo bile.png" class="logo">
+        <p class="textvpoli">FEEDER
+      </div>
+   </div>
+
+</a>
+
+   
+<a href="https://www.skullfish.cz/boostery--dipy-a-tekute-zalivky/" style="text-decoration: none;">
+     <div class="containerb">
+      <div class="ctvrtybox">
+        <img src="https://www.skullfish.cz/user/documents/upload/skull logo bile.png" class="logo">
+        <p class="textvpoli">TEKUTÉ <br> SLOŽKY
+      </div>  
+   </div>
+   
+</div>
+
+</a>
+
+  
+<a href="https://www.skullfish.cz/method-mixy-a-smesi/" style="text-decoration: none;">
+   <div class="containerb">
+      <div class="patybox">
+        <img src="https://www.skullfish.cz/user/documents/upload/skull logo bile.png" class="logo">
+        <p class="textvpoli">METHOD MIXY <br> A SMĚSI</p>
+      </div>  
+   </div>
+</a>
+  
+  
+
+<section class="product-section">
+  <h2 style="text-align:center; margin-bottom:10px;">Novinky</h2>  <!-- nadpis prvního scrollu -->
+  <div class="product-scroll-wrapper" id="dynamic-scroll-wrapper">
+    <div class="arrow arrow-left">&#10094;</div>
+    <div class="product-scroll" id="dynamic-scroll"></div>
+    <div class="arrow arrow-right">&#10095;</div>
+  </div>
+</section>
+
+<section class="product-section">
+  <h2 style="text-align:center; margin-bottom:10px;">Tipy & doporučení</h2>  <!-- nadpis druhého scrollu -->
+  <div class="product-scroll-wrapper">
+    <div class="arrow arrow-left second">&#10094;</div>
+    <div class="product-scroll second-scroll"></div>
+    <div class="arrow arrow-right second">&#10095;</div>
+  </div>
+</section>
+
+<script>
+// seznam produktů 
+const allProducts = [
+  {name: "Kouřový dip", price: "199 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/1125_polish-20250426-105603613-copy-580x580.png?682d9096", url: "https://www.skullfish.cz/kourovy-dip/"},
+  {name: "SkullFish Pelets HALIBUT", price: "139 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/1140_hali1.jpg?683023c3", url: "https://www.skullfish.cz/skullfish-pelets-ananas/"},
+  {name: "SkullFish Pelets ANANAS", price: "149 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/1137-2_m-rapeecpin5012-2-93840825-1616071366.jpg?683023c2", url: "https://www.skullfish.cz/skullfish-pelets-jahoda/"},
+  {name: "SkullFish Pelets ČESNEK", price: "149 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/1131_skullfish-pelets-cesnek--velikost-baleni-1kg---4mm.jpg?683023c2", url: "https://www.skullfish.cz/skull-fish-pelets/"},
+  {name: "Bolies Intense | MASTER LIVER |", price: "179 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/1039_intenze-master.jpg?682d9093", url: "https://www.skullfish.cz/bolies-intense--master-liver/"},
+  {name: "Boilies PREMIUM ACTIVE | MASTER LIVER |", price: "395 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/1069_master-prem-act.jpg?682d9092", url: "https://www.skullfish.cz/boilies-premium-active-master-liver/"},
+  {name: "Boilies PREMIUM | MANGO/CHILLI |", price: "139 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/1003_prem-mango-act.jpg?682d9091", url: "https://www.skullfish.cz/boilies-premium-mango-chilli/"},
+  {name: "Boilies PREMIUM | MASTER LIVER |", price: "139 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/1006_master-prem-act.jpg?682d9092", url: "https://www.skullfish.cz/boilies-premium-master-liver/"},
+  {name: "Dipované boilies | MANGO/CHILLI | 250 g", price: "169 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/1015_dip-mamgo.jpg?682d9094", url: "https://www.skullfish.cz/dipovane-boilies-mango-chilli-250-g/"},
+  {name: "Neutrálně vyvážené boilies | MASTER LIVER | 200 g", price: "196 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/1033_balanc-master.jpg?682d9098", url: "https://www.skullfish.cz/neutralne-vyvazene-boilies-master-liver-200-g/"},
+];
+
+const allProductsSecond = [
+  {name: "Korda Nůžky Basix Rig Scissors", price: "139 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/19158-4_53126-3-rvp-e550bb4d67.jpg?689452f2", url: "https://www.skullfish.cz/korda-nuzky-basix-rig-scissors/"},
+  {name: "Boilies ACTIVE | BANÁN | 250G |", price: "157 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/619_banan.jpg?682d9091", url: "https://www.skullfish.cz/boilies-active-banan-250g/"},
+  {name: "RidgeMonkey: Věšák na návazce Hangman Rig Rack", price: "319 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/27450_14253-2-14253-ridgemonkey-vesak-na-navazce-hangman-rig-rack.jpg?696b44c5", url: "https://www.skullfish.cz/ridgemonkey--vesak-na-navazce-hangman-rig-rack/"},
+  {name: "POP-UP mini nugets 40 g", price: "172 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/432_nugety-ananas.jpg?682d909a", url: "https://www.skullfish.cz/pop-up-mini-nugets-ananas-40-g/"},
+  {name: "Fox bunda Camo/Khaki RS 10K Jacket", price: "2 189 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/22230-10_fox-bunda-camo-khaki-rs-10k-jacket--varianta-fox-camo-khaki-rs-10k-jacket-s-.jpg?689452f2", url: "https://www.skullfish.cz/fox-bunda-camo-khaki-rs-10k-jacket/"},
+  {name: "RidgeMonkey čelovka USB VRH150", price: "1 389 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/28041_11193-5-11193-1-ridgemonkey-celovka-usb-vrh150.jpg?689452f2", url: "https://www.skullfish.cz/ridgemonkey-celovka-usb-vrh150/"},
+  {name: "Boilies ACTIVE | MORUŠE | 250G |", price: "157 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/616_moruse.jpg?682d9091", url: "https://www.skullfish.cz/boilies-active-cerny-pepr-250g/"},
+  {name: "Korda Organizér Tacklesafe", price: "759 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/19143-5_53138-4-rvp-e550bb4d67.jpg?689452f2", url: "https://www.skullfish.cz/korda-organizer-tacklesafe/"},
+  {name: "POP-UP Boilies | ČESNEK | 50 g", price: "159 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/576-1_cesnek.jpg?682d909a", url: "https://www.skullfish.cz/pop-up-boilies-ananas--14mm-50-g-3/"},
+  {name: "Korda Nůžky Razor Blades", price: "220 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/19152-6_53105-4-korda-nuzky-razor-blades.jpg?689452f2", url: "https://www.skullfish.cz/korda-nuzky-razor-blades/"},
+  {name: "POP-UP Boilies | POMERANČ | 50 g", price: "159 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/573_pop-up-pomeranc.jpg?682d909a", url: "https://www.skullfish.cz/pop-up-boilies-ananas--14mm-50-g-2/"},
+  {name: "Pufovaná kukuřice |8-10mm 20g|", price: "39 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/363-6_pufovana-kukurice-komplet.jpg?682d909b", url: "https://www.skullfish.cz/pufovana-kukurice/"},
+  {name: "Fox Přehoz na židli Waterproof Chair Covers", price: "369 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/23739-3_fox-prehoz-na-zidli-waterproof-chair-covers--varianta-waterproof-chair-cover-xl-.jpg?68945972", url: "https://www.skullfish.cz/fox-prehoz-na-zidli-waterproof-chair-covers/"},
+  {name: "POP-UP Boilies | ČERNÝ PEPŘ | 50 g", price: "159 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/570-1_polish-20240216-171938934.jpg?682d909a", url: "https://www.skullfish.cz/pop-up-boilies-cerny-pepr--14mm-50-g/"},
+  {name: "Boilies ACTIVE | KLOBÁSA | 250G |", price: "157 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/802_klobasa.jpg?682d9091", url: "https://www.skullfish.cz/boilies-active-klobasa-250g/"},
+  //bez policka tip toto pod ma mbyt
+  {name: "Boilies SPECIAL | MARINE |", price: "110 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/64_spec-marine.jpg?682d9093", url: "https://www.skullfish.cz/marine/"},
+  {name: "Dipované boilies | KRILL SPICE | 250 g", price: "152 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/250-1_dip--krill.jpg?682d9094", url: "https://www.skullfish.cz/dipovany-krill-spice/"},
+  {name: "Mini boilies SPECIAL | JAHODA |", price: "90 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/441-1_jahoda.jpg?682d9097", url: "https://www.skullfish.cz/mini-boilies-special-jahoda/"},
+  {name: "HARD boilies | MANGO/CHILLI | 200 g|", price: "190 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/1101_polish-20250227-094525422-copy-504x504.png?682d9095", url: "https://www.skullfish.cz/hard-boilies-mango-chilli-200-g/"},
+  {name: "HARD boilies | MASTER LIVER | 200 g", price: "190 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/1098_polish-20250227-094640928-copy-510x511.png?682d9095", url: "https://www.skullfish.cz/hard-boilies-master-liver-200-g/"},
+  {name: "Boilies SPECIAL | KRILL SPICE |", price: "110 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/226-1_spec-krill.jpg?682d9092", url: "https://www.skullfish.cz/boilies-krill-spice/"},
+  {name: "Dipované boilies | MARINE | 250 g", price: "152 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/247-1_dip-marine.jpg?682d9094", url: "https://www.skullfish.cz/dipovany-marine/"},
+  {name: "Neutrálně vyvážené boilies | MASTER LIVER | 200 g", price: "196 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/1033_balanc-master.jpg?682d9098", url: "https://www.skullfish.cz/neutralne-vyvazene-boilies-master-liver-200-g/"},
+  {name: "Dipované boilies | TROPICAL | 250 g", price: "152 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/244-1_dip-tropic.jpg?682d9094", url: "hhttps://www.skullfish.cz/dipovany-tropical/"},
+  {name: "Mini boilies SPECIAL | TROPICAL |", price: "90 Kč", image: "https://cdn.myshoptet.com/usr/www.skullfish.cz/user/shop/big/848-1_tropical.jpg?682d9098", url: "https://www.skullfish.cz/mini-boilies-special-tropical/"},
+
+  ];
+
+// náhodný výběr 8 produktů
+function getRandomProducts(arr, count) {
+  const shuffled = arr.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+}
+
+const scrollContainer = document.getElementById("dynamic-scroll");
+const selectedProducts = getRandomProducts(allProducts, 8);
+
+selectedProducts.forEach(product => {
+  const a = document.createElement("a");
+  a.href = product.url;
+  a.className = "product-item";
+
+  const showtip2 =! [
+    "Kouřový dip",
+    "SkullFish Pelets HALIBUT",
+    "SkullFish Pelets ANANAS",
+    "SkullFish Pelets ČESNEK",
+    "Neutrálně vyvážené boilies | MASTER LIVER | 200 g",
+ 
+  ].includes(product.name); // tyto produkty **TIP nemají**
+
+  a.innerHTML = `
+  <div class="image-wrapper">
+    <div class="image" style="background-image:url(${product.image})"></div>
+    <div class="info">
+      <span class="caption">${product.name}</span>
+      <span class="price">${product.price}</span>
+      <span class="button"
+        onmouseover="this.style.backgroundColor='#EB3B84'; this.style.color='white';"
+        onmouseout="this.style.backgroundColor='#D14FC0'; this.style.color='white';"
+      >Detail</span>
+    </div>
+    <span class="novinka">Novinka</span>
+    ${showtip2 ? '<span class="tip2">TIP</span>' : ''}
+    
+  </div>
+  `;
+
+  scrollContainer.appendChild(a);
+});
+
+// šipky
+const leftArrow = document.querySelector('.arrow-left');
+const rightArrow = document.querySelector('.arrow-right');
+
+leftArrow.addEventListener('click', () => {
+  scrollContainer.scrollBy({left: -220, behavior: 'smooth'});
+});
+
+rightArrow.addEventListener('click', () => {
+  scrollContainer.scrollBy({left: 220, behavior: 'smooth'});
+});
+
+//  přesun:doplnit pod  zahlavi,odstranit origo baner, dodelat svuj
+document.addEventListener("DOMContentLoaded", function() {
+  const scrollWrapper = document.getElementById("dynamic-scroll-wrapper");
+  const carousel = document.querySelector(".sh-header, .header-container, .section-header");
+
+  if(header) {
+    header.insertAdjacentElement('afterend', scrollWrapper);
+  } else {
+    console.warn("Carousel nebyl nalezen, scroll zůstane na původní pozici");
+  }
+});
+
+const secondScroll = document.querySelector(".second-scroll");
+
+// seznam produktů pro druhý scroll
+const selectedProducts2 = getRandomProducts(allProductsSecond, 15);
+
+selectedProducts2.forEach(product => {
+  const a = document.createElement("a");
+  a.href = product.url;
+  a.className = "product-item";
+
+  // pokud produkt má být TIP, nastav tip = true
+  // zde si určíš, které produkty budou mít TIP
+  const showTip = ![
+    "Boilies SPECIAL | MARINE |",
+    "Dipované boilies | KRILL SPICE |",
+    "Mini boilies SPECIAL | JAHODA |",
+    "HARD boilies | MANGO/CHILLI | 200 g|",
+    "HARD boilies | MASTER LIVER | 200 g",
+    "Boilies SPECIAL | KRILL SPICE |",
+    "Dipované boilies | MARINE | 250 g",
+    "Neutrálně vyvážené boilies | MASTER LIVER | 200 g",
+    "Dipované boilies | TROPICAL | 250 g",
+    "Mini boilies SPECIAL | TROPICAL |"
+  ].includes(product.name); // tyto produkty **TIP nemají**
+
+  a.innerHTML = `
+    <div class="image-wrapper">
+      <div class="image" style="background-image:url(${product.image})"></div>
+      <div class="info">
+        <span class="caption">${product.name}</span>
+        <span class="price">${product.price}</span>
+        <span class="button"
+          onmouseover="this.style.backgroundColor='#EB3B84'; this.style.color='white';"
+          onmouseout="this.style.backgroundColor='#D14FC0'; this.style.color='white';"
+        >Detail</span>
+      </div>
+      ${showTip ? '<span class="tip">TIP</span>' : ''}
+    </div>
+  `;
+
+  secondScroll.appendChild(a);
+});
+
+// šipky druhého scrollu
+const leftArrow2 = document.querySelector('.arrow-left.second');
+const rightArrow2 = document.querySelector('.arrow-right.second');
+
+leftArrow2.addEventListener('click', () => {
+  secondScroll.scrollBy({left: -220, behavior: 'smooth'});
+});
+
+rightArrow2.addEventListener('click', () => {
+  secondScroll.scrollBy({left: 220, behavior: 'smooth'});
+});
+</script>
+
+<script>
+const slidesContainer = document.querySelector('.slider .slides');
+const slides = document.querySelectorAll('.slider .slides img');
+const prevBtn = document.querySelector('.slider .prev');
+const nextBtn = document.querySelector('.slider .next');
+
+let index = 1;
+const slideWidth = 100;
+const intervalTime = 3000;
+let autoSlide;
+
+// klony
+const firstClone = slides[0].cloneNode(true);
+const lastClone = slides[slides.length - 1].cloneNode(true);
+
+slidesContainer.appendChild(firstClone);
+slidesContainer.insertBefore(lastClone, slides[0]);
+
+const allSlides = document.querySelectorAll('.slider .slides img');
+
+// start
+slidesContainer.style.transform = `translateX(-${slideWidth * index}%)`;
+
+function moveSlide() {
+  slidesContainer.style.transition = 'transform 0.5s ease';
+  slidesContainer.style.transform = `translateX(-${slideWidth * index}%)`;
+}
+
+// autoplay
+function startAutoSlide() {
+  autoSlide = setInterval(() => {
+    index++;
+    moveSlide();
+  }, intervalTime);
+}
+
+function stopAutoSlide() {
+  clearInterval(autoSlide);
+}
+
+// šipky
+nextBtn.addEventListener('click', () => {
+  stopAutoSlide();
+  index++;
+  moveSlide();
+  startAutoSlide();
+});
+
+prevBtn.addEventListener('click', () => {
+  stopAutoSlide();
+  index--;
+  moveSlide();
+  startAutoSlide();
+});
+
+// nekonečný efekt
+slidesContainer.addEventListener('transitionend', () => {
+  if (allSlides[index].isSameNode(firstClone)) {
+    slidesContainer.style.transition = 'none';
+    index = 1;
+    slidesContainer.style.transform = `translateX(-${slideWidth * index}%)`;
+  }
+
+  if (allSlides[index].isSameNode(lastClone)) {
+    slidesContainer.style.transition = 'none';
+    index = allSlides.length - 2;
+    slidesContainer.style.transform = `translateX(-${slideWidth * index}%)`;
+  }
+});
+
+// start autoplay
+startAutoSlide();
+</script>
+ <script>
+  document.addEventListener("DOMContentLoaded", function() {
+  // Najdi hlavičku
+  const header = document.querySelector(".sh-header, .header-container, .section-header");
+
+  // Vytvořím fragment s celým obsahem těla kromě headeru
+  const bodyChildren = Array.from(document.body.children).filter(el => el !== header);
+
+  if (header) {
+    bodyChildren.forEach(el => {
+      header.insertAdjacentElement('afterend', el);
+    });
+  } else {
+    console.warn("Header nebyl nalezen. Obsah zůstane na původní pozici.");
+  }
+});
+
+ </script>
+
+</body>
+</html>
